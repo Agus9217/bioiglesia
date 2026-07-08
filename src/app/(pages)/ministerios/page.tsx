@@ -2,12 +2,12 @@ import { ministriesImages } from '@/assets/img/ministerios';
 import {
   Box,
   Flex,
-  Grid,
   Heading,
   Highlight,
   Text,
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Ministerios() {
   const items = Object.entries(ministriesImages);
@@ -125,6 +125,7 @@ export default function Ministerios() {
       >
         {items.map(([key, ministry]) => (
           <Box
+            asChild
             key={key}
             w={'full'}
             aspectRatio={2 / 3}
@@ -133,42 +134,44 @@ export default function Ministerios() {
             overflow={'hidden'}
             position={'relative'}
           >
-            <Image
-              fill
-              src={ministry.image}
-              alt={ministry.label}
-              sizes="(max-width: 768px) 100vw, 320px"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                objectPosition: 'center',
-                zIndex: 0,
-              }}
-            />
-            <Flex
-              position="absolute"
-              inset={0}
-              zIndex={2}
-              alignItems="center"
-              justifyContent="center"
-              bg="rgba(0,0,0,0.8)"
-              opacity={0}
-              transition="opacity 0.2s ease"
-              _hover={{ opacity: 1 }}
-            >
-              <Heading
-                color="white"
-                fontWeight="bold"
-                fontSize={{ base: '5xl' }}
-                lineHeight={'50px'}
-                textAlign="center"
-                px={4}
-                letterSpacing={'4px'}
+            <Link href={ministry.href}>
+              <Image
+                fill
+                src={ministry.image}
+                alt={ministry.label}
+                sizes="(max-width: 768px) 100vw, 320px"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'center',
+                  zIndex: 0,
+                }}
+              />
+              <Flex
+                position="absolute"
+                inset={0}
+                zIndex={2}
+                alignItems="center"
+                justifyContent="center"
+                bg="rgba(0,0,0,0.8)"
+                opacity={0}
+                transition="opacity 0.2s ease"
+                _hover={{ opacity: 1 }}
               >
-                {ministry.label}
-              </Heading>
-            </Flex>
+                <Heading
+                  color="white"
+                  fontWeight="bold"
+                  fontSize={{ base: '4xl' }}
+                  lineHeight={'50px'}
+                  textAlign="center"
+                  px={4}
+                  letterSpacing={'4px'}
+                >
+                  {ministry.label}
+                </Heading>
+              </Flex>
+            </Link>
           </Box>
         ))}
       </Flex>

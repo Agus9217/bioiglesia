@@ -5,6 +5,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { CarouselComponent } from '../carousel/CarouselComponent';
+import { ministeriosItems } from '@/app/(pages)/ministerios/[slug]/data/ministerios';
+
+// 1. Cambiamos la importación para traer el array que refactorizamos
+// (Ajusta la ruta '@/data/ministerios' según dónde hayas guardado el archivo final)
 
 export const Ministerios = () => {
   return (
@@ -41,7 +45,9 @@ export const Ministerios = () => {
           Nuestros Ministerios
         </Heading>
       </Flex>
-      <CarouselComponent />
+
+      {/* 2. Le pasamos el nuevo array 'ministeriosItems' */}
+      <CarouselComponent items={ministeriosItems} />
     </Flex>
   );
 };

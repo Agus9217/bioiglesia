@@ -1,3 +1,6 @@
+'use client'; // <-- Fundamental agregarlo para poder usar useState
+
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -15,6 +18,26 @@ import { navItems } from '../navbar/navItems';
 import Link from 'next/link';
 
 export const Footer = () => {
+  // 1. Creamos el estado para guardar el email ingresado
+  const [emailInput, setEmailInput] = useState('');
+
+  // 2. Función que arma el enlace mailto y lo ejecuta
+  const handleEnviar = () => {
+    // Evitamos que haga algo si el input está vacío
+    if (!emailInput.trim()) return;
+
+    // Codificamos el texto para que los espacios y arrobas sean válidos en una URL
+    const asunto = encodeURIComponent(
+      `${emailInput} quiere comunicarse con bioiglesia`,
+    );
+
+    // Abrimos el cliente de correo del usuario
+    window.location.href = `mailto:info@bioiglesia.com?subject=${asunto}`;
+
+    // Opcional: Limpiar el input después de hacer clic
+    setEmailInput('');
+  };
+
   return (
     <Stack
       borderTopWidth={'1px'}
@@ -121,8 +144,23 @@ export const Footer = () => {
             <Input
               placeholder="Ingrese email"
               rounded={'xl'}
+              type="email"
+              // 3. Conectamos el input al estado
+              value={emailInput}
+              onChange={(e) =>
+                setEmailInput(e.target.value)
+              }
+              // Opcional: Permitir enviar presionando "Enter"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleEnviar();
+              }}
             />
-            <Button rounded={'xl'}>Enviar</Button>
+            <Button
+              rounded={'xl'}
+              onClick={handleEnviar} // 4. Ejecutamos la función al hacer clic
+            >
+              Enviar
+            </Button>
           </Flex>
         </Flex>
       </Flex>
@@ -132,7 +170,11 @@ export const Footer = () => {
         w={'full'}
         maxW={'1024px'}
       />
-      <Flex>
+      <Flex
+        justifyContent={'center'}
+        alignItems={'center'}
+        textAlign={'center'}
+      >
         <Text>
           BIOIGLESIA Todos los derechos reservados
           &copy; {new Date().getFullYear()}

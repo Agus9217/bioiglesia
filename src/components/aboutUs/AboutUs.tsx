@@ -144,8 +144,11 @@ export const AboutUs = () => {
                 size={'xl'}
                 rounded={'full'}
                 shadow={'lg'}
+                asChild
               >
-                Ver más sobre nosotros
+                <a href="/nosotros">
+                  Ver más sobre nosotros
+                </a>{' '}
                 <Icon icon={'lucide:arrow-up-right'} />
               </Button>
             </Flex>

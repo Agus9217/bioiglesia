@@ -30,7 +30,7 @@ export const Hero = () => {
         left={'50%'}
         transform={'translate(-50%, -50%)'}
         w={'full'}
-        maxW={'85%'}
+        maxW={{ base: '85%', '2xl': '1920px' }}
         h={'70%'}
         zIndex={2}
       >
@@ -98,6 +98,7 @@ export const Hero = () => {
             }}
           >
             <Button
+              asChild
               size={'xl'}
               textTransform={'uppercase'}
               fontWeight={'bold'}
@@ -107,10 +108,13 @@ export const Hero = () => {
                 color: 'white',
               }}
             >
-              Visítanos el domingo
+              <a href="/contacto">
+                Visítanos el domingo
+              </a>
               <Icon icon={'lucide:arrow-right'} />
             </Button>
             <Button
+              asChild
               size={'xl'}
               variant={'outline'}
               borderColor={'white'}
@@ -123,7 +127,12 @@ export const Hero = () => {
                 bg: 'none',
               }}
             >
-              Mirar en vivo
+              <a
+                href="https://www.youtube.com/@BIOIGLESIA/streams"
+                target="_blank"
+              >
+                Mirar en vivo
+              </a>
               <Icon icon={'lucide:circle-play'} />
             </Button>
           </Flex>

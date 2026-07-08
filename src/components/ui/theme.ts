@@ -19,6 +19,11 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 const customConfig = defineConfig({
+  globalCss: {
+    html: {
+      scrollBehavior: 'smooth',
+    },
+  },
   theme: {
     tokens: {
       fonts: {

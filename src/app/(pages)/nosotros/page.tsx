@@ -38,7 +38,7 @@ export default function Nosotros() {
           left={'50%'}
           transform={'translate(-50%, -50%)'}
           w={'full'}
-          maxW={'85%'}
+          maxW={{ base: '85%', '2xl': '1920px' }}
           h={'70%'}
           zIndex={2}
         >
@@ -97,8 +97,8 @@ export default function Nosotros() {
                 textStyle={'italic'}
                 fontSize={'sm'}
               >
-                Acércate y descubre una iglesia con 30
-                años de fe y servicio.
+                Acércate y descubre una iglesia
+                sirviendo con fe y compromiso.
               </Text>
             </Flex>
             <Text
@@ -107,8 +107,8 @@ export default function Nosotros() {
               maxW={'500px'}
               w={'full'}
             >
-              Llevamos 30 años de ministerio sirviendo
-              a Dios y a nuestra comunidad,
+              Llevamos muchos años de ministerio
+              sirviendo a Dios y a nuestra comunidad,
               compartiendo el mensaje de amor y
               esperanza. Nos encontramos en Barrio
               Nuevo, Libertad, donde seguimos creciendo
@@ -148,22 +148,6 @@ export default function Nosotros() {
             autenticidad, profundizar su fe y forjar
             relaciones afectivas.
           </Text>
-        </Flex>
-        <Flex
-          maxW={'full'}
-          w={'full'}
-          justifyContent={'center'}
-          px={{ base: 4, md: 0 }}
-        >
-          <iframe
-            width="560"
-            height="315"
-            src="https://www.youtube.com/embed/ZYKjLEv0Bwg?si=pWbwKGPB6ZaH9wWf"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerPolicy="strict-origin-when-cross-origin"
-            allowFullScreen
-          ></iframe>
         </Flex>
       </Flex>
       <Stack

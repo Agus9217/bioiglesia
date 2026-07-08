@@ -1,59 +1,89 @@
 'use client';
 
-import { ministriesImages } from '@/assets/img/ministerios';
 import {
   Box,
   Carousel,
   Flex,
   Heading,
-  Text,
   useBreakpointValue,
 } from '@chakra-ui/react';
-import Image from 'next/image';
+import Image, {
+  type StaticImageData,
+} from 'next/image';
 import Link from 'next/link';
 
-const items = Object.entries(ministriesImages);
+type CarouselItemType = {
+  slug: string;
+  title: string;
+  image: string | StaticImageData;
+};
 
-console.log(items);
+type CarouselComponentProps = {
+  items?: CarouselItemType[];
+  // NUEVO: Agregamos una prop para controlar el tamaño
+  size?: 'normal' | 'small';
+};
 
-export const CarouselComponent = () => {
+export const CarouselComponent = ({
+  items = [],
+  size = 'normal', // Por defecto es 'normal' para no romper el Home
+}: CarouselComponentProps) => {
+  // 1. Calculamos cuántos slides mostrar según el tamaño elegido
   const slidesCount = useBreakpointValue({
-    base: 1,
-    md: 2,
-    lg: 3,
-    '2xl': 4,
+    base: size === 'small' ? 2 : 1,
+    md: size === 'small' ? 3 : 2,
+    lg: size === 'small' ? 4 : 3,
+    '2xl': size === 'small' ? 5 : 4,
   });
+
+  // 2. Definimos estilos dinámicos basados en la prop 'size'
+  const itemMaxWidth =
+    size === 'small' ? '220px' : '320px';
+  const headingFontSize =
+    size === 'small'
+      ? { base: '2xl', md: '3xl' }
+      : { base: '5xl' };
+  const headingLineHeight =
+    size === 'small' ? '30px' : '50px';
+
+  // Programación defensiva
+  if (items.length === 0) return null;
+
   return (
     <Carousel.Root
       autoplay
       slideCount={items.length}
       maxW="1920px"
-      w={'full'}
+      w="full"
       mx="auto"
-      slidesPerPage={slidesCount}
+      slidesPerPage={slidesCount ?? 1}
       px={{ base: 4, lg: '12' }}
     >
       <Carousel.ItemGroup w="full">
-        {items.map(([key, ministry], index) => (
+        {items.map((ministry, index) => (
           <Carousel.Item
-            key={key}
+            key={ministry.slug}
             index={index}
             w="full"
-            maxW={'320px'}
+            maxW={itemMaxWidth} // <-- Aplicamos el ancho dinámico
             aspectRatio={2 / 3}
           >
-            <Link href={ministry.href} passHref>
+            <Link
+              href={`/ministerios/${ministry.slug}`}
+            >
               <Box
                 position="relative"
-                h={'full'}
-                w={'full'}
+                h="full"
+                w="full"
                 rounded="2xl"
                 overflow="hidden"
+                borderWidth="1px"
+                borderColor="whiteAlpha.100"
               >
                 <Image
                   fill
                   src={ministry.image}
-                  alt={ministry.label}
+                  alt={ministry.title}
                   sizes="(max-width: 768px) 100vw, 320px"
                   style={{
                     width: '100%',
@@ -78,13 +108,13 @@ export const CarouselComponent = () => {
                   <Heading
                     color="white"
                     fontWeight="bold"
-                    fontSize={{ base: '5xl' }}
-                    lineHeight={'50px'}
+                    fontSize={headingFontSize} // <-- Tipografía dinámica
+                    lineHeight={headingLineHeight} // <-- Interlineado dinámico
                     textAlign="center"
                     px={4}
-                    letterSpacing={'4px'}
+                    letterSpacing="4px"
                   >
-                    {ministry.label}
+                    {ministry.title}
                   </Heading>
                 </Flex>
               </Box>
