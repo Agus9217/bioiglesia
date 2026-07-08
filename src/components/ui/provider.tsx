@@ -12,7 +12,10 @@ export function Provider(
 ) {
   return (
     <ChakraProvider value={system}>
-      <ColorModeProvider {...props} />
+      <ColorModeProvider
+        forcedTheme="dark"
+        {...props}
+      />
     </ChakraProvider>
   );
 }
