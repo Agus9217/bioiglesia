@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next';
+
 import { Footer, Navbar } from '@/components';
 import { Provider } from '@/components/ui/provider';
 
@@ -16,6 +18,7 @@ export default function RootLayout({
         <Provider>
           <Navbar />
           {children}
+          <Analytics />
           <Footer />
         </Provider>
       </body>
