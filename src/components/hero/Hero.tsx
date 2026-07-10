@@ -40,6 +40,7 @@ export const Hero = () => {
           flexDirection={'column'}
           gap={{ base: 6, md: 8 }}
           justifyContent={'center'}
+          px={6}
         >
           <Flex alignItems={'center'} gap={2}>
             <Box
@@ -59,11 +60,19 @@ export const Hero = () => {
           </Flex>
           <Heading
             fontWeight={'bold'}
-            fontSize={{ base: '6xl', md: '7xl' }}
-            lineHeight={{ base: '55px', md: '65px' }}
+            fontSize={{
+              base: '5xl',
+              md: '6xl',
+              '2xl': '8xl',
+            }}
+            lineHeight={{
+              base: '55px',
+              md: '65px',
+              '2xl': '92px',
+            }}
           >
             <Highlight
-              query={'tu iglesia'}
+              query={'el mundo'}
               styles={{
                 bgGradient: 'to-r',
                 gradientFrom: 'orange.400',
@@ -72,7 +81,8 @@ export const Hero = () => {
                 color: 'transparent',
               }}
             >
-              Bioiglesia nuestra iglesia tu iglesia
+              Bioiglesia amando a Dios la iglesia y el
+              mundo
             </Highlight>
           </Heading>
           <Flex
