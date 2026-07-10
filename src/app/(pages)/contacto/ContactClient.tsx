@@ -260,7 +260,7 @@ export default function Contacto() {
                   fontSize={'sm'}
                   color={'gray.400'}
                 >
-                  1122334455
+                  +5491133217950
                 </Text>
               </Box>
             </Flex>
