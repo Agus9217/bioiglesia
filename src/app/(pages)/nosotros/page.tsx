@@ -11,6 +11,17 @@ import {
 } from '@chakra-ui/react';
 import { Icon } from '@iconify/react';
 
+// app/(pages)/nosotros/page.tsx (o la ruta donde esté)
+import { constructMetadata } from '@/lib/metadata';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = constructMetadata({
+  title: 'Nosotros',
+  description:
+    'Conoce la historia, visión y propósitos de Bioiglesia. Somos una iglesia cristiana en Barrio Nuevo, Merlo, centrada en amar a Dios y a nuestra comunidad.',
+  canonical: '/nosotros', // <-- 1. Agregamos la propiedad canonical
+});
+
 export default function Nosotros() {
   return (
     <>

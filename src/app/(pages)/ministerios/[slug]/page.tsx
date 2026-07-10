@@ -7,10 +7,12 @@ import {
   Highlight,
 } from '@chakra-ui/react';
 import Image from 'next/image';
+import type { Metadata } from 'next'; // <-- Importamos el tipo Metadata
 
 // Asegúrate de que esta ruta apunte correctamente a tu archivo de datos actualizado
 import { ministeriosItems } from './data/ministerios';
 import { CarouselComponent } from '@/components/carousel/CarouselComponent';
+import { constructMetadata } from '@/lib/metadata'; // <-- Importamos tu función helper
 
 // 1. Generamos las rutas estáticas en build time (SSG)
 export function generateStaticParams() {
@@ -19,7 +21,38 @@ export function generateStaticParams() {
   }));
 }
 
-// 2. El componente de la página
+// 2. Generamos la Metadata dinámica para SEO
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const ministerio = ministeriosItems.find(
+    (m) => m.slug === slug,
+  );
+
+  // Si no existe, devolvemos metadata de error (Evita indexar 404s)
+  if (!ministerio) {
+    return constructMetadata({
+      title: 'Ministerio no encontrado',
+      noIndex: true,
+    });
+  }
+
+  return constructMetadata({
+    title: ministerio.title,
+    description:
+      `Conoce el ministerio de ${ministerio.title} en Bioiglesia. ${ministerio.description}`.substring(
+        0,
+        155,
+      ) + '...',
+    // Al ser un string definido en la interfaz, lo pasamos directamente sin validaciones extra
+    image: ministerio.image,
+    canonical: `/ministerios/${slug}`,
+  });
+}
+// 3. El componente de la página
 export default async function MinisterioPage({
   params,
 }: {
