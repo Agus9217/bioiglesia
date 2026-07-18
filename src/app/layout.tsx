@@ -1,8 +1,8 @@
 import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-import { Footer, Navbar } from '@/components';
 import { Provider } from '@/components/ui/provider';
+import { ConditionalLayout } from '@/components';
 import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
@@ -71,11 +71,11 @@ export default function RootLayout({
     >
       <body>
         <Provider>
-          <Navbar />
-          {children}
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
           <Analytics />
           <SpeedInsights />
-          <Footer />
         </Provider>
       </body>
     </html>
