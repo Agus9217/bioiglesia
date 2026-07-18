@@ -59,6 +59,7 @@ export const Hero = () => {
             </Text>
           </Flex>
           <Heading
+            as={'h1'}
             fontWeight={'bold'}
             fontSize={{
               base: '5xl',
@@ -96,8 +97,10 @@ export const Hero = () => {
               bg={'green.700'}
             />
             <Text textStyle={'italic'} fontSize={'sm'}>
-              Iglesia centrada en la adoración a Cristo
-              y el crecimiento natural dado por Dios
+              Iglesia evangélica en Barrio Nuevo,
+              Libertad. Centrada en la adoración a
+              Cristo y el crecimiento natural dado por
+              Dios.
             </Text>
           </Flex>
           <Flex
