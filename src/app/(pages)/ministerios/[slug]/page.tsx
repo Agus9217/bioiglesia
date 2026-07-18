@@ -7,12 +7,11 @@ import {
   Highlight,
 } from '@chakra-ui/react';
 import Image from 'next/image';
-import type { Metadata } from 'next'; // <-- Importamos el tipo Metadata
+import type { Metadata } from 'next';
 
-// Asegúrate de que esta ruta apunte correctamente a tu archivo de datos actualizado
 import { ministeriosItems } from './data/ministerios';
 import { CarouselComponent } from '@/components/carousel/CarouselComponent';
-import { constructMetadata } from '@/lib/metadata'; // <-- Importamos tu función helper
+import { constructMetadata } from '@/lib/metadata';
 
 // 1. Generamos las rutas estáticas en build time (SSG)
 export function generateStaticParams() {
@@ -32,7 +31,6 @@ export async function generateMetadata({
     (m) => m.slug === slug,
   );
 
-  // Si no existe, devolvemos metadata de error (Evita indexar 404s)
   if (!ministerio) {
     return constructMetadata({
       title: 'Ministerio no encontrado',
@@ -42,34 +40,32 @@ export async function generateMetadata({
 
   return constructMetadata({
     title: ministerio.title,
+    // <-- AJUSTE SEO 1: Inyección de palabra clave local en la descripción dinámica
     description:
-      `Conoce el ministerio de ${ministerio.title} en Bioiglesia. ${ministerio.description}`.substring(
+      `Descubre el ministerio de ${ministerio.title} de nuestra iglesia evangélica en Libertad, Merlo. ${ministerio.description}`.substring(
         0,
         155,
       ) + '...',
-    // Al ser un string definido en la interfaz, lo pasamos directamente sin validaciones extra
     image: ministerio.image,
     canonical: `/ministerios/${slug}`,
   });
 }
+
 // 3. El componente de la página
 export default async function MinisterioPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  // Buscamos la data del ministerio actual
   const { slug } = await params;
   const ministerio = ministeriosItems.find(
     (m) => m.slug === slug,
   );
 
-  // Si alguien entra a /ministerios/ruta-falsa, tira 404
   if (!ministerio) {
     notFound();
   }
 
-  // Filtramos la data para el carrusel (excluyendo el ministerio actual)
   const otrosMinisterios = ministeriosItems.filter(
     (m) => m.slug !== slug,
   );
@@ -87,7 +83,7 @@ export default async function MinisterioPage({
           src={ministerio.image}
           alt={`Fondo representativo del ministerio ${ministerio.title}`}
           fill
-          priority // Fundamental para mejorar el LCP
+          priority
           style={{
             objectFit: 'cover',
             objectPosition: 'center',
@@ -148,6 +144,7 @@ export default async function MinisterioPage({
               />
             </Flex>
             <Heading
+              as={'h1'} // <-- AJUSTE SEO 2: H1 semántico para el título del ministerio
               fontWeight={'bold'}
               fontSize={{ base: '6xl', md: '7xl' }}
               lineHeight={{ base: '55px', md: '65px' }}
@@ -194,6 +191,7 @@ export default async function MinisterioPage({
             gap={6}
           >
             <Heading
+              as={'h2'} // <-- AJUSTE SEO 3: Jerarquía correcta
               textTransform={'uppercase'}
               fontSize={'4xl'}
               lineHeight={'1.2'}
@@ -211,7 +209,6 @@ export default async function MinisterioPage({
             </Text>
           </Flex>
 
-          {/* Tarjeta del Versículo / Visión rediseñada tipo Quote */}
           <Box
             bg={'whiteAlpha.50'}
             p={6}
@@ -239,7 +236,6 @@ export default async function MinisterioPage({
           }}
           flex={1}
         >
-          {/* Contenedor de imagen tipo "Premium Card" */}
           <Box
             w={'full'}
             maxW={'400px'}
@@ -273,19 +269,20 @@ export default async function MinisterioPage({
         </Flex>
       </Flex>
 
-      {/* --- GALERÍA CONDICIONAL (5 IMÁGENES ASIMÉTRICAS - CUADRADO PERFECTO) --- */}
+      {/* --- GALERÍA CONDICIONAL --- */}
       {ministerio.gallery &&
         ministerio.gallery.length > 0 && (
           <Flex
             flexDir={'column'}
             mx={'auto'}
-            maxW={'1200px'} // Ancho máximo controlado para mantener la proporción cuadrada en desktop
+            maxW={'1200px'}
             w={'full'}
             px={8}
             mb={{ base: 16, md: 24 }}
             gap={8}
           >
             <Heading
+              as={'h2'} // <-- AJUSTE SEO 3
               fontSize={'2xl'}
               fontWeight={'medium'}
               color={'whiteAlpha.800'}
@@ -300,28 +297,27 @@ export default async function MinisterioPage({
               gridTemplateColumns={{
                 base: '1fr',
                 md: 'repeat(2, 1fr)',
-                lg: 'repeat(3, 1fr)', // Configuramos 3 columnas para el bento de 5 piezas
+                lg: 'repeat(3, 1fr)',
               }}
               gridAutoFlow="row dense"
               gap={6}
               gridAutoRows={{
                 base: '250px',
                 md: '250px',
-                lg: '240px', // Altura calculada para balancear el bloque
+                lg: '240px',
               }}
             >
               {ministerio.gallery
                 .slice(0, 5)
                 .map((img, index) => {
-                  // Definimos los spans para encastrar las 5 piezas en una cuadrícula de 3x3
                   let desktopColSpan = 'span 1';
                   let desktopRowSpan = 'span 1';
 
                   if (index === 0) {
-                    desktopColSpan = 'span 2'; // Bloque grande de 2x2
+                    desktopColSpan = 'span 2';
                     desktopRowSpan = 'span 2';
                   } else if (index === 4) {
-                    desktopColSpan = 'span 2'; // Bloque inferior horizontal de 2x1
+                    desktopColSpan = 'span 2';
                     desktopRowSpan = 'span 1';
                   }
 
@@ -352,7 +348,6 @@ export default async function MinisterioPage({
                         },
                       }}
                     >
-                      {/* Overlay sutil */}
                       <Box
                         position="absolute"
                         inset={0}
@@ -393,6 +388,7 @@ export default async function MinisterioPage({
           mx={'auto'}
         >
           <Heading
+            as={'h2'} // <-- AJUSTE SEO 3
             textAlign={'center'}
             fontSize={'3xl'}
             fontWeight={'medium'}
