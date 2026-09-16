@@ -160,6 +160,7 @@ export default function Contacto() {
               />
             </Flex>
             <Heading
+              as="h1"
               fontWeight={'bold'}
               fontSize={{ base: '6xl', md: '7xl' }}
               lineHeight={{ base: '55px', md: '65px' }}

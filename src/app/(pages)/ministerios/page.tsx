@@ -6,8 +6,17 @@ import {
   Highlight,
   Text,
 } from '@chakra-ui/react';
+import { constructMetadata } from '@/lib/metadata';
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+
+export const metadata: Metadata = constructMetadata({
+  title: 'Ministerios de la iglesia en Libertad, Merlo',
+  description:
+    'Conocé los ministerios de Bioiglesia en Libertad, Merlo: adoración, jóvenes, niños y más. Iglesia cristiana en Barrio Nuevo, sirviendo a Dios y la comunidad.',
+  canonical: 'https://bioiglesia.com/ministerios',
+});
 
 export default function Ministerios() {
   const items = Object.entries(ministriesImages);
@@ -73,6 +82,7 @@ export default function Ministerios() {
               />
             </Flex>
             <Heading
+              as="h1"
               fontWeight={'bold'}
               fontSize={{ base: '6xl', md: '7xl' }}
               lineHeight={{ base: '55px', md: '65px' }}

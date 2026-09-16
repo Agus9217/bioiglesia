@@ -3,10 +3,11 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import { Provider } from '@/components/ui/provider';
 import { ConditionalLayout } from '@/components';
+import { SITE_URL } from '@/lib/metadata';
 import type { Metadata, Viewport } from 'next';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://bioiglesia.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default:
       'Bioiglesia | Iglesia Evangélica en Barrio Nuevo, Libertad', // Más corto, directo a la palabra clave principal
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     images: ['/og-image.jpg'],
   },
   robots: { index: true, follow: true },
-  alternates: { canonical: '/' },
+  alternates: { canonical: `${SITE_URL}/` },
   // verification: {
   //   google: '[CÓDIGO-DE-GOOGLE-SEARCH-CONSOLE]',
   // },
